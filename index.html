@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quantum Surface Code & FTQC Studio | Codex</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header de Aplicación -->
+  <header class="app-header">
+    <div class="brand-wrapper">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
+        </svg>
+      </div>
+      <div class="brand-title">
+        <h1>Quantum Surface Code & FTQC Studio</h1>
+        <div class="subtitle">Fault-Tolerant Quantum Computing & Syndrome Matching Explorer</div>
+      </div>
+    </div>
+    <div class="header-badges">
+      <span class="badge pulse">FTQC v1.0.0</span>
+      <span class="badge">Google Stim & Qualtran Ready</span>
+      <span class="badge">Zero-Cost Pre-Sim</span>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal de la SPA -->
+  <main class="main-layout">
+    <!-- Panel Izquierdo: Configuración e Inyector de Errores -->
+    <aside class="panel panel-sidebar-left">
+      <div class="panel-header">
+        <span class="panel-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          Arquitectura del Código
+        </span>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="codeType">Topología Cuántica:</label>
+        <select id="codeType">
+          <option value="planar" selected>Rotated Planar Surface Code (Defectos y Bordes Abiertos)</option>
+          <option value="toric">Toric Code (Superficie Periódica Toroidal)</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="codeDistance">
+          <span>Distancia de Código (d):</span>
+          <span class="control-value" id="distVal">d = 3</span>
+        </label>
+        <select id="codeDistance">
+          <option value="3" selected>d = 3 (9 Data, 8 Estabilizadores)</option>
+          <option value="5">d = 5 (25 Data, 24 Estabilizadores)</option>
+          <option value="7">d = 7 (49 Data, 48 Estabilizadores)</option>
+        </select>
+      </div>
+
+      <div class="panel-header" style="margin-top: 0.5rem;">
+        <span class="panel-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+          Inyector de Ruido Físico
+        </span>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="errorRateSlider">
+          <span>Tasa de Error Físico (p):</span>
+          <span class="control-value" id="errorRateVal">1.0%</span>
+        </label>
+        <input type="range" id="errorRateSlider" min="0.1" max="10.0" step="0.1" value="1.0">
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" style="display:flex; align-items:center; gap: 0.5rem; cursor:pointer;">
+          <input type="checkbox" id="measNoiseCheck">
+          <span>Simular Error en Medición de Ancilla</span>
+        </label>
+      </div>
+
+      <div class="button-grid">
+        <button class="btn btn-secondary" id="btnInjectRandom">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+          Inyectar Ruido
+        </button>
+        <button class="btn btn-secondary" id="btnClearErrors">
+          Limpiar Todo
+        </button>
+      </div>
+
+      <div class="panel-header" style="margin-top: 0.5rem;">
+        <span class="panel-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          Decodificación & Corrección
+        </span>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="decoderAlgorithm">Algoritmo Decodificador:</label>
+        <select id="decoderAlgorithm">
+          <option value="mwpm" selected>MWPM (Minimum-Weight Perfect Matching / Blossom)</option>
+          <option value="union_find">Union-Find (Crecimiento Voraz de Clusters O(Nα(N)))</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" id="btnDecode">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        Decodificar Síndromes & Corregir
+      </button>
+
+      <div class="metric-card" id="statusCard">
+        <span class="metric-title">Estado de Protección Lógica</span>
+        <span class="metric-val success" id="logicalStatusText">SUPERPOSICIÓN PROTEGIDA</span>
+        <span class="metric-desc" id="logicalStatusDesc">No hay cadenas de error homológicamente activas.</span>
+      </div>
+    </aside>
+
+    <!-- Centro: Lienzo Interactivo de la Celosía Cuántica -->
+    <section class="canvas-panel">
+      <div class="canvas-toolbar">
+        <div class="canvas-legend">
+          <div class="legend-item">
+            <span class="legend-color" style="background: var(--cyan-x); box-shadow: 0 0 6px var(--cyan-x);"></span>
+            <span>Estabilizador X (Vértice)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color" style="background: var(--violet-z); box-shadow: 0 0 6px var(--violet-z);"></span>
+            <span>Estabilizador Z (Plaquette)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color" style="background: var(--err-red); box-shadow: 0 0 8px var(--err-red);"></span>
+            <span>Síndrome Activo (-1)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color" style="background: hsl(210, 40%, 96%); border-radius: 50%;"></span>
+            <span>Data Qubit</span>
+          </div>
+        </div>
+        <div style="font-size: 0.75rem; color: var(--text-dim); font-family: var(--font-mono);">
+          Haz clic en un qubit para alternar errores (X &rarr; Z &rarr; Y &rarr; I)
+        </div>
+      </div>
+
+      <div class="canvas-container" id="canvasWrapper">
+        <canvas id="latticeCanvas" width="700" height="520"></canvas>
+        <div class="quantum-tooltip" id="latticeTooltip"></div>
+      </div>
+    </section>
+
+    <!-- Panel Derecho: Umbral FTQC, Métricas y Exportación -->
+    <aside class="panel panel-sidebar-right">
+      <div class="panel-header">
+        <span class="panel-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          Métricas de Tolerancia a Fallos
+        </span>
+      </div>
+
+      <div class="metric-card">
+        <span class="metric-title">Fidelidad del Qubit Lógico</span>
+        <span class="metric-val" id="fidelityVal">99.97%</span>
+        <span class="metric-desc" id="regimeDesc">Régimen Sub-umbral (p < p_th &approx; 1.05%)</span>
+      </div>
+
+      <div class="button-grid">
+        <div class="metric-card">
+          <span class="metric-title">Síndromes Activos</span>
+          <span class="metric-val" id="syndromesCountVal">0</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-title">Emparejamientos</span>
+          <span class="metric-val" id="matchesCountVal">0</span>
+        </div>
+      </div>
+
+      <div class="panel-header" style="margin-top: 0.5rem;">
+        <span class="panel-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          Ejecución Cloud & FinOps
+        </span>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="cloudTarget">Proveedor / Motor de Ejecución:</label>
+        <select id="cloudTarget">
+          <option value="simulator" selected>Pre-Simulador Local WASM / ES2024 ($0.00)</option>
+          <option value="ibm_quantum">IBM Quantum Cloud (Capa Free Open 10m/mes)</option>
+          <option value="google_cirq">Google Quantum AI (Stim & Qualtran Costing)</option>
+        </select>
+      </div>
+
+      <button class="btn btn-secondary" id="btnDispatchCloud">
+        Enviar a Motor Cuántico
+      </button>
+
+      <div class="panel-header" style="margin-top: 0.5rem;">
+        <span class="panel-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+          Exportador de Circuitos
+        </span>
+      </div>
+
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="tab-stim">Stim</button>
+        <button class="tab-btn" data-tab="tab-qasm">OpenQASM 3.0</button>
+        <button class="tab-btn" data-tab="tab-qiskit">Qiskit Python</button>
+      </div>
+
+      <div class="tab-content active" id="tab-stim">
+        <pre class="code-container" id="stimCodeArea"></pre>
+      </div>
+      <div class="tab-content" id="tab-qasm">
+        <pre class="code-container" id="qasmCodeArea"></pre>
+      </div>
+      <div class="tab-content" id="tab-qiskit">
+        <pre class="code-container" id="qiskitCodeArea"></pre>
+      </div>
+
+      <button class="btn btn-secondary" id="btnCopyCode" style="font-size: 0.78rem;">
+        Copiar Código al Portapapeles
+      </button>
+
+      <div class="panel-header" style="margin-top: 0.5rem;">
+        <span class="panel-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+          Caché de Ejecuciones SQLite
+        </span>
+      </div>
+      <div class="history-list" id="historyContainer">
+        <!-- Récords de persistencia dinámicos -->
+      </div>
+    </aside>
+  </main>
+
+  <!-- Footer con metadatos y enlaces de investigación -->
+  <footer class="app-footer">
+    <div>
+      Codex Capa 4: Cómputo Cuántico Híbrido & FTQC &bull;
+      <span>Subproyecto <code>quantum-surface-code-ftqc-studio</code></span>
+    </div>
+    <div>
+      Compatible con <strong>Google Stim</strong>, <strong>PyMatching</strong> y <strong>OpenQASM 3.0</strong>
+    </div>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
